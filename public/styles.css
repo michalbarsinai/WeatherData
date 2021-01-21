@@ -1,0 +1,26 @@
+.header-heading {
+    text-decoration: none;
+    color: black;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+}
+
+.link:hover {
+    color: white;
+}
+
+.current-content {
+    width: 100%;
+    text-align: center;
+}
+
+.chart {
+    width: 100%;
+    align-content: center;
+    padding: 50px 300px;
+}
+
+
