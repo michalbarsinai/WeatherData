@@ -10,7 +10,7 @@ function Chart(props){
     useEffect(() => {
         async function fetchData(){
             if (props.selectedCity === "") {return}
-            const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=77c5729e290843fd84e163402211601&q=${props.selectedCity}&days=3`);
+            const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_APIKEY}&q=${props.selectedCity}&days=3`);
             const jsonData = await response.json();
             const {forecast: {forecastday}} = jsonData;
             setWeatherData([]);
