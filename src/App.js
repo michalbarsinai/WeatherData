@@ -2,16 +2,15 @@ import React, {useState, useEffect} from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import NightsStayIcon from '@material-ui/icons/NightsStay';
-import Select from "./components/Select";
-import Now from "./components/Now";
+  } from "react-router-dom";
+import HeaderTitle from "./components/HeaderTitle"
+import SelectCity from "./components/SelectCity";
+import CurrentTemp from "./components/CurrentTemp";
 import Chart from "./components/Chart";
+import DataButton from './components/DataButton';
 
 
-function App() {
+const App = () => {
 
   const [isSelected, setIsSelected] = useState(false);
   const [currentCity, setCurrentCity] = useState('');
@@ -26,7 +25,7 @@ function App() {
   }, []);
 
   
-  function handleSelect(selectedCity) {
+  const handleSelect = (selectedCity) => {
     setCurrentCity(selectedCity);
     setIsSelected(true);
   }
@@ -35,59 +34,36 @@ function App() {
     setIsSelected(false);
   }, []);
 
-  function handleClick(event){
-    if (isSelected) {
-      return
-    } else {
-      event.preventDefault();
-    }
-  }
-
 
   return (
     <Router>
       <div className="card">
-        <Link to="/" className="link">
-          <div className="card-header">
-            <h1 className="header-heading"><NightsStayIcon />SomeWeatherData</h1>
-          </div>
-        </Link>
+        <HeaderTitle />
+
+        {/* figure out */}
         <p>Current time: {currentTime}</p>
+
         <div className="card-body">
           <div className="row align-items-center">
-            <div className="col-6">
-              <Select onSelect={handleSelect}/>
-            </div>
+
+            <SelectCity onSelect={handleSelect}/>
+
             <div className="d-grid gap-2 col-6 mx-auto">
-            <Link to="/now" className="link" onClick={handleClick}>
-              <button className="btn btn-outline-dark" disabled={!isSelected}>
-                  Current temp
-              </button>
-            </Link>
-            <Link to="/chart" className="link" onClick={handleClick}>
-              <button className="btn btn-outline-dark" disabled={!isSelected}>
-                3 day forecast
-              </button>
-            </Link>
+              <DataButton to="/currenttemp" isEnabled={isSelected} dataTitle="Current temp" />
+              <DataButton to="/chart" isEnabled={isSelected} dataTitle="3 day forecast" />
+            </div>
+
           </div>
         </div>
-        </div>
       </div>
-        <Switch>
-          <Route path="/now">
-              <div className="current-content">
-                <Now selectedCity={currentCity} />
-              </div>
-          </Route>
-          <Route path="/chart">
-              <div className="chart">
-                <Chart selectedCity={currentCity}/>
-              </div>
-          </Route>
-        </Switch>
+
+      <Switch>
+        <CurrentTemp path="/currenttemp" selectedCity={currentCity} />
+        <Chart path="/chart" selectedCity={currentCity}/>
+      </Switch>
+
     </Router>
   );
 }
 
 export default App;
-
