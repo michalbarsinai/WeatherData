@@ -1,7 +1,6 @@
 import ast
 import config
 import json
-import os
 import requests
 from flask import Flask
 
