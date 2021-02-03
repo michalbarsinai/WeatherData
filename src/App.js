@@ -14,17 +14,7 @@ const App = () => {
 
   const [isSelected, setIsSelected] = useState(false);
   const [currentCity, setCurrentCity] = useState('');
-  const [currentTime, setCurrentTime] = useState(0);
 
-  useEffect(() => {
-    setInterval(()=>{
-      fetch('/time').then(res => res.json()).then(data => {
-        setCurrentTime(data.now);
-      });
-    }, 1000);
-  }, []);
-
-  
   const handleSelect = (selectedCity) => {
     setCurrentCity(selectedCity);
     setIsSelected(true);
@@ -39,9 +29,6 @@ const App = () => {
     <Router>
       <div className="card">
         <HeaderTitle />
-
-        {/* figure out */}
-        <p>Current time: {currentTime}</p>
 
         <div className="card-body">
           <div className="row align-items-center">
