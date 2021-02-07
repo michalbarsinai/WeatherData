@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { Route } from "react-router";
+import ListGroup from "react-bootstrap/ListGroup"
 
 
 const CurrentTemp = (props) => {
@@ -11,7 +12,7 @@ const CurrentTemp = (props) => {
   
   useEffect(() => {
 
-    if (props.selectedCity === "") {return}
+    if (!props.selectedCity) {return}
     const storage = window.localStorage;
     const storageKey = `${props.selectedCity.replace(' ', '')}Current`;
 
@@ -42,12 +43,17 @@ const CurrentTemp = (props) => {
 
   return (
     <Route path={props.path}>
-      <div className="current-content">
-        <h1>Current Temperature: {currentData.actual}</h1>
-        <h3>feels like: {currentData.feelsLike}</h3>
-      </div>
+      <ListGroup variant="flush">
+        <ListGroup.Item className="temp-line">
+          current temperature: <span className="temp-num">{currentData.actual} ℃</span>
+        </ListGroup.Item>
+        <ListGroup.Item className="temp-line">
+          feels like: <span className="temp-num">{currentData.feelsLike} ℃</span>
+        </ListGroup.Item>
+      </ListGroup>
     </Route>
   )
 }
+
 
 export default CurrentTemp;

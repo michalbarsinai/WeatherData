@@ -1,6 +1,28 @@
+body {
+    font-family: 'Baloo 2', cursive;
+}
+
+/********************* Card *********************/
+
+.card {
+    border: none !important;
+}
+
+.card-header {
+    box-shadow: 0.1px 5px 7px -5px rgba(97, 94, 94, 0.63) ;
+    border-radius: 0px 0px 5px 5px !important;
+}
+
 .header-heading {
-    text-decoration: none;
-    color: black;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    text-shadow: 2px 2px 2px #3f102daf;
+}
+
+/********************* Links *********************/
+
+a:hover {
+    text-decoration: none !important;
 }
 
 .link {
@@ -8,19 +30,51 @@
     color: black;
 }
 
-.link:hover {
-    color: white;
+/********************* Buttons *********************/
+
+.btn {
+    border-radius: 0px;
+    margin: 3px;
 }
 
-.current-content {
-    width: 100%;
-    text-align: center;
+.btn:focus {
+    box-shadow: none!important;
 }
 
-.chart {
-    width: 100%;
-    align-content: center;
-    padding: 50px 300px;
+/********************* TempData *********************/
+
+.temp-line {
+    font-size: 1.3em;
+    font-weight: 500;
 }
+
+.temp-num {
+    font-weight: 700;
+    color: #eb5e0b;
+}
+
+/********************* Chart *********************/
+
+.custom-tooltip {
+    background-color: #00bbd46c;
+    border-radius: 3px;
+    font-family: 'Nunito', sans-serif;
+
+}
+
+.tooltip-label {
+    font-weight: bolder;
+    align-self: center;
+    padding: 4px 6px 0px 6px;
+}
+
+.tooltip-info {
+    padding: 0px 6px 1px 6px;
+}
+
+.tooltip-info span {
+    font-weight: 600;
+}
+
 
 
