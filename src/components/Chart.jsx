@@ -49,9 +49,14 @@ const Chart = (props) => {
       return (
         <div className="custom-tooltip">
           <p className="tooltip-label">{label}</p>
-          <p className="tooltip-info"><span>{`${payload[0].dataKey}: `}</span>{payload[0].value}</p>
-          <p className="tooltip-info"><span>{`${payload[1].dataKey}: `}</span>{payload[1].value}</p>
-          <p className="tooltip-info"><span>{`${payload[2].dataKey}: `}</span>{payload[2].value}</p>
+          {lineData.map((line) => {
+            return(
+              <p className="tooltip-info" key={line[0]}>
+                <span>{`${payload[lineData.indexOf(line)].dataKey}: `}</span>
+                {payload[lineData.indexOf(line)].value}
+              </p>
+            )
+          })}
         </div>
       );
     }
