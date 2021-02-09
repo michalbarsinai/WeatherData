@@ -1,8 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Card from "react-bootstrap/Card";
 import HeaderTitle from "./components/HeaderTitle"
 import SelectCity from "./components/SelectCity";
 import CurrentTemp from "./components/CurrentTemp";
@@ -12,56 +14,30 @@ import DataButton from './components/DataButton';
 
 const App = () => {
 
-  const [isSelected, setIsSelected] = useState(false);
   const [currentCity, setCurrentCity] = useState('');
-  const [currentTime, setCurrentTime] = useState(0);
 
-  useEffect(() => {
-    setInterval(()=>{
-      fetch('/time').then(res => res.json()).then(data => {
-        setCurrentTime(data.now);
-      });
-    }, 1000);
-  }, []);
-
-  
   const handleSelect = (selectedCity) => {
-    setCurrentCity(selectedCity);
-    setIsSelected(true);
+    setCurrentCity(selectedCity)
   }
-
-  useEffect(() => {
-    setIsSelected(false);
-  }, []);
 
 
   return (
     <Router>
-      <div className="card">
+      <Card border="light" style={{ width: '100%' }}>
         <HeaderTitle />
 
-        {/* figure out */}
-        <p>Current time: {currentTime}</p>
+        <Card.Body>
+          <SelectCity onSelect={handleSelect}/>
+          <DataButton to="/currenttemp" isEnabled={currentCity} dataTitle="Current temp" />
+          <DataButton to="/chart" isEnabled={currentCity} dataTitle="3 day forecast" />
+        </Card.Body>
 
-        <div className="card-body">
-          <div className="row align-items-center">
+        <Switch>
+          <CurrentTemp path="/currenttemp" selectedCity={currentCity} />
+          <Chart path="/chart" selectedCity={currentCity}/>
+        </Switch>
 
-            <SelectCity onSelect={handleSelect}/>
-
-            <div className="d-grid gap-2 col-6 mx-auto">
-              <DataButton to="/currenttemp" isEnabled={isSelected} dataTitle="Current temp" />
-              <DataButton to="/chart" isEnabled={isSelected} dataTitle="3 day forecast" />
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-      <Switch>
-        <CurrentTemp path="/currenttemp" selectedCity={currentCity} />
-        <Chart path="/chart" selectedCity={currentCity}/>
-      </Switch>
-
+      </Card>
     </Router>
   );
 }

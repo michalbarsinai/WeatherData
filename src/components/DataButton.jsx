@@ -1,27 +1,28 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { LinkContainer } from 'react-router-bootstrap';
+import Button from "react-bootstrap/Button"
 
 const DataButton = (props) => {
+  // const [checked, setChecked] = useState(false);
 
-    const handleClick = (event) => {
-        //if a city was selected -->
-        if (props.isEnabled) {
-          //don't do anything and return (clicking link will switch route)
-          return
-        //if a city was not selected -->
-        } else {
-          //prevent the click to follow link url
-          event.preventDefault();
-        }
+  const handleClick = (event) => {
+      //if a city was selected -->
+      if (props.isEnabled) {
+        return
+      //if a city was not selected -->
+      } else {
+        // prevent the click to follow link url if city not chosen
+        event.preventDefault();
       }
-
-    return (
-        <Link to={props.to} className="link" onClick={handleClick}>
-            <button className="btn btn-outline-dark" disabled={!props.isEnabled}>
-                {props.dataTitle}
-            </button>
-        </Link>
-    )
+  }
+  
+  return (
+    <LinkContainer to={props.to} onClick={handleClick}>
+      <Button className="btn-lg" variant="light" disabled={!props.isEnabled}>
+        {props.dataTitle}
+      </Button>
+    </LinkContainer>
+  )
 }
 
 export default DataButton;
