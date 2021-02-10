@@ -58,7 +58,7 @@ def handle_comment_req():
         "query": {
             "match_all": {}
             },
-            "size": 10,
+            "size": 6,
             "sort": [
                 {
                 "timeStamp": {
@@ -69,10 +69,3 @@ def handle_comment_req():
     
     res = es.search(index='weather-comments', body=search_body)
     return res
-
-
-# 1. post comment to comments index (body is request.json)
-# # 
-# # print(res['result'])
-
-# 2. 

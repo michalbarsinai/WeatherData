@@ -21,24 +21,30 @@ body {
 
 /********************* Links *********************/
 
-a:hover {
-    text-decoration: none !important;
-}
-
-.link {
+.link, .link:hover {
     text-decoration: none;
     color: black;
 }
 
+
+.header-link, .header-link:hover{
+    color: white;
+    text-decoration: none;
+}
+
 /********************* Buttons *********************/
 
-.btn {
+/* .btn {
     border-radius: 0px;
     margin: 3px;
 }
 
 .btn:focus {
     box-shadow: none!important;
+} */
+
+.login-button {
+    position: relative;
 }
 
 /********************* TempData *********************/
@@ -76,5 +82,14 @@ a:hover {
     font-weight: 600;
 }
 
+.comment-card {
+    margin: 3px;
+}
 
+Paper {
+    align-content: center;
+}
 
+Toolbar {
+    display: inline-flex;
+}

@@ -1,6 +1,12 @@
 import React, {useEffect, useState} from "react";
 import { Route } from "react-router";
-import ListGroup from "react-bootstrap/ListGroup"
+import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+
+
 
 
 const CurrentTemp = (props) => {
@@ -43,14 +49,19 @@ const CurrentTemp = (props) => {
 
   return (
     <Route path={props.path}>
-      <ListGroup variant="flush">
-        <ListGroup.Item className="temp-line">
-          current temperature: <span className="temp-num">{currentData.actual} ℃</span>
-        </ListGroup.Item>
-        <ListGroup.Item className="temp-line">
-          feels like: <span className="temp-num">{currentData.feelsLike} ℃</span>
-        </ListGroup.Item>
-      </ListGroup>
+
+        <Paper>
+        <List>
+          <ListItem divider>
+            <ListItemText primary={`current temperature: ${currentData.actual} ℃`}/>
+          </ListItem>
+          <Divider />
+          <ListItem divider>
+            <ListItemText primary={`feels like: ${currentData.feelsLike} ℃`}/>
+          </ListItem>
+          </List>
+        </Paper>
+
     </Route>
   )
 }

@@ -1,31 +1,37 @@
 import React from 'react';
-import { Comment } from 'semantic-ui-react';
-
-
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import Typography from '@material-ui/core/Typography';
+import Avatar from '@material-ui/core/Avatar';
+// import Button from '@material-ui/core/Button';
+// import CardActions from '@material-ui/core/CardActions';
 
 const SingleComment = (props) => {
 
     const timeOptions = { dateStyle: 'medium', timeStyle: 'short' };
     const timeObj = props.time;
     
-
-    return(
-        <Comment>
-            {/* <Comment.Avatar src={props.avatar} /> */}
-            <Comment.Content>
-                {/* <Comment.Author as='a'>{props.user}</Comment.Author> */}
-                <Comment.Metadata>{timeObj.toLocaleString('en-US', timeOptions)}</Comment.Metadata>
-                <Comment.Text>{props.content}</Comment.Text>
-                {/* {will be added later on */}
-            {/* <Comment.Actions>
-                    <Comment.Action>Reply</Comment.Action> 
-                    <Comment.Action>Like</Comment.Action>
-                </Comment.Actions> */}
-            </Comment.Content>
-        </Comment>
-    )
-}
-
+    return (
+        <Card className="comment-card">  
+            <CardHeader
+                avatar={
+                    <Avatar aria-label="recipe" >
+                        R
+                    </Avatar>
+                }
+                title="User name"
+                variant="subtitle1"
+                subheader={timeObj.toLocaleString('en-US', timeOptions)}
+            />
+            <CardContent>
+                <Typography variant="body2">
+                    {props.content}
+                </Typography>
+            </CardContent>
+        </Card>
+      );
+    }
 
 
 

@@ -3,10 +3,13 @@ import { Route } from "react-router";
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
   } from 'recharts';
-import Container from "react-bootstrap/Container";
+import Paper from '@material-ui/core/Paper';
+
+
+
 
 const Chart = (props) => {
-
+  
   const [weatherData, setWeatherData] = useState([]);
 
   useEffect(() => {
@@ -27,6 +30,7 @@ const Chart = (props) => {
         lastUpdate: Date.now()
       })
       storage.setItem(storageKey, data);
+      return storage.getItem(storageKey)
     }
 
     const now = Date.now();
@@ -36,10 +40,11 @@ const Chart = (props) => {
       ((now - JSON.parse(storage.getItem(storageKey)).lastUpdate)/36e5 > 0.5)) 
     {
       console.log("fetching");
-      getData().then(() => setWeatherData(JSON.parse(storage.getItem(storageKey))));
-    } else {
-      setWeatherData(JSON.parse(storage.getItem(storageKey)))
+      getData().then(res => setWeatherData((JSON.parse(res)).data))
+      return
     }
+    setWeatherData((JSON.parse(storage.getItem(storageKey)).data))
+    
   }, [props.selectedCity]);
 
   const lineData = [['max', '#ffcc29'], ['avg', '#db6400'], ['min', '#845ec2']]
@@ -61,39 +66,43 @@ const Chart = (props) => {
       );
     }
     return null;
-  };
+  }
 
   return (
-      <Route path={props.path}>
-        <Container>
-            <LineChart
-                width={450}
-                height={350}
-                data={weatherData.data}
-                margin={{
-                top: 10, right: 30, left: 20, bottom: 5,
-            }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis label={{ value: '℃', angle: 0, position: 'insideLeft' }}/>
-              <Tooltip content={<CustomTooltip />}/>
-              <Legend layout='vertical' verticalAlign='top' align='right' iconType='circle' wrapperStyle={{right: -60 }}/>
-              {lineData.map(line => (
-                <Line 
-                  type="monotone" 
-                  dataKey={line[0]} 
-                  stroke={line[1]} 
-                  animationDuration={900} 
-                  activeDot={{ r: 8 }} 
-                  key={line[0]}
-                />
-              ))}
-            </LineChart>
-        </Container>
-      </Route>
+    <Route path={props.path}>
+      <div style={{height: 450, width: 450}}>
+        <Paper elevation={3} >
+          <LineChart
+              height={400}
+              width={400}
+              data={weatherData}
+              margin={{
+              top: 30, left: 30, right: 30, bottom: 30
+          }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" tickMargin={10}/>
+            <YAxis type="number" label={{ value: '℃', angle: 0, position: 'insideLeft' }}/>
+            <Tooltip content={<CustomTooltip />}/>
+            <Legend layout='vertical' verticalAlign='top' align='right' iconType='circle' wrapperStyle={{right: -40}}/>
+            {lineData.map(line => (
+              <Line 
+                type="monotone" 
+                dataKey={line[0]} 
+                stroke={line[1]} 
+                animationDuration={900} 
+                activeDot={{ r: 8 }} 
+                key={line[0]}
+              />
+            ))}
+          </LineChart>
+        </Paper>
+      </div>
+    </Route>
   )
 }
+
+
 
 
 export default Chart;

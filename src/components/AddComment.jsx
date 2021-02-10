@@ -1,8 +1,21 @@
 import React, { useState } from 'react'
-import { Button, Form } from 'semantic-ui-react'
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+        width: '25ch',
+      },
+    },
+  }));
+  
 
 const AddComment = (props) => {
 
+    const classes = useStyles();
     const [commentData, setCommentData] = useState({
         userName: '',
         userAvatar: '',
@@ -16,7 +29,6 @@ const AddComment = (props) => {
         body: JSON.stringify(commentData)
     };
     
-    // const timeOptions = { dateStyle: 'medium', timeStyle: 'short' };
 
     const handleChange = (event) => {
         setCommentData(prevContent => (
@@ -26,6 +38,7 @@ const AddComment = (props) => {
             }
         ));
     }
+
 
     const postToDatabase = async () => {
         fetch('/comments', requestOptions)
@@ -38,11 +51,14 @@ const AddComment = (props) => {
         });
     }
 
+
     const handleSubmit = (event) => {
+        console.log(event);
         postToDatabase();
         props.onAdd({
             content: commentData.content,
-            timeStamp: new Date(commentData.timeStamp)
+            timeStamp: new Date(commentData.timeStamp),
+            tempId: event.timeStamp
         });
         setCommentData({
             content: '',
@@ -52,10 +68,17 @@ const AddComment = (props) => {
     }
 
     return (
-        <Form action='POST' onSubmit={handleSubmit} reply>
-            <Form.TextArea onChange={handleChange} value={commentData.content}/>
-            <Button type="submit" content='Add Comment' labelPosition='left' icon='edit' primary />
-        </Form>
+        <form className={classes.root} autoComplete="off" action='POST' onSubmit={handleSubmit}>
+            <TextField 
+                id="outlined-basic" 
+                label="comment" variant="outlined" 
+                onChange={handleChange} 
+                value={commentData.content}
+            />
+            <Button type="submit" variant="contained" color="primary">
+                Add Comment
+            </Button>
+        </form>
     )
 }
 
