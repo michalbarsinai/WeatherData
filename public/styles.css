@@ -1,7 +1,6 @@
 body {
     font-family: 'Baloo 2', cursive;
 }
-
 /********************* Card *********************/
 
 .card {
@@ -84,6 +83,7 @@ body {
 
 .comment-card {
     margin: 3px;
+    width: 100%;
 }
 
 Paper {
@@ -92,4 +92,14 @@ Paper {
 
 Toolbar {
     display: inline-flex;
+}
+
+.comment-list {
+    border: 2px black;
+}
+
+.component-head {
+    margin-bottom: 30px;
+    border-radius: 4px;
+    background-color: #f57b51;
 }

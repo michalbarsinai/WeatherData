@@ -1,34 +1,40 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
-import {Link} from 'react-router-dom';
-import SelectCity from './SelectCity'
+import List from '@material-ui/core/List';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+import SelectCity from './Sidebar-components/SelectCity';
+import DataOption from './Sidebar-components/DataOption'
 
 
 
 const Sidbar = (props) => {
 
-    const handleClick = (event) => {
-        //if a city was selected -->
-        if (props.isEnabled) {
-          return
-        //if a city was not selected -->
-        } else {
-          // prevent the click to follow link url if city not chosen
-          event.preventDefault();
-        }
-    }
-
     return (
-      <Paper>
-        <MenuList>
-          <MenuItem><SelectCity onSelect={props.onSelect} /></MenuItem>
-          <MenuItem><Link to='/currenttemp' onClick={handleClick} className="link">Current Temp</Link></MenuItem>
-          <MenuItem><Link to='/chart' onClick={handleClick} className="link">3 day forecast</Link></MenuItem>
-        </MenuList>
-      </Paper>
-    )
+      <React.Fragment>
+        <CssBaseline />
+
+        <SelectCity onSelect={props.onSelect} />
+ 
+        <List>
+          <Paper>
+          <DataOption 
+            linkPath={'/currenttemp'}
+            iconName={'update'}
+            dataName={'Current weather'}
+            isEnabled={props.isEnabled}
+          />
+          <DataOption 
+            linkPath={'/chart'}
+            iconName={'time'}
+            dataName={'3 day forecast'}
+            isEnabled={props.isEnabled}
+          />
+        </Paper>
+      </List>
+        
+    </React.Fragment>
+  )
 }
 
 export default Sidbar;

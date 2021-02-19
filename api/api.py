@@ -34,7 +34,8 @@ def get_weather_data(city, data_type):
     dict_str_res = res.decode("UTF-8")
     if data_type == "current":
         current_dict_res = ast.literal_eval(dict_str_res)["current"]
-        return {k: v for (k, v) in current_dict_res.items() if k in ["feelslike_c", "temp_c"]}
+        print({k: v for (k, v) in current_dict_res.items() if k in ["feelslike_c", "temp_c", "condition"]})
+        return {k: v for (k, v) in current_dict_res.items() if k in ["feelslike_c", "temp_c", "condition"]}
 
     days_list_res = ast.literal_eval(dict_str_res)["forecast"]["forecastday"]
     forecast_dict_res = {
@@ -58,7 +59,7 @@ def handle_comment_req():
         "query": {
             "match_all": {}
             },
-            "size": 6,
+            "size": 12,
             "sort": [
                 {
                 "timeStamp": {

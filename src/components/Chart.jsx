@@ -71,10 +71,10 @@ const Chart = (props) => {
   return (
     <Route path={props.path}>
       <div style={{height: 450, width: 450}}>
-        <Paper elevation={3} >
+        <Paper elevation={3} style={{height: 450, width: 500}}>
           <LineChart
-              height={400}
-              width={400}
+              height={450}
+              width={450}
               data={weatherData}
               margin={{
               top: 30, left: 30, right: 30, bottom: 30
@@ -84,7 +84,7 @@ const Chart = (props) => {
             <XAxis dataKey="name" tickMargin={10}/>
             <YAxis type="number" label={{ value: '℃', angle: 0, position: 'insideLeft' }}/>
             <Tooltip content={<CustomTooltip />}/>
-            <Legend layout='vertical' verticalAlign='top' align='right' iconType='circle' wrapperStyle={{right: -40}}/>
+            <Legend layout='vertical' verticalAlign='top' align='right' iconType='circle' wrapperStyle={{right: -30}}/>
             {lineData.map(line => (
               <Line 
                 type="monotone" 

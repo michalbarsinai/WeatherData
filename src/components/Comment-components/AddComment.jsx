@@ -1,21 +1,48 @@
 import React, { useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
+import {
+    withStyles,
+    makeStyles,
+  } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
+const CssTextField = withStyles({
     root: {
-      '& > *': {
-        margin: theme.spacing(1),
-        width: '25ch',
+      '& label.Mui-focused': {
+        color: '#d63447',
+      },
+      '& .MuiInput-underline:after': {
+        borderBottomColor: '#d63447',
+      },
+      '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+          borderColor: 'red',
+        },
+        '&:hover fieldset': {
+          borderColor: '#d63447',
+        },
+        '&.Mui-focused fieldset': {
+          borderColor: '#d63447',
+        },
       },
     },
+  })(TextField);
+
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    margin: {
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+      backgroundColor: 'white',
+    },
   }));
-  
 
 const AddComment = (props) => {
-
     const classes = useStyles();
+    
     const [commentData, setCommentData] = useState({
         userName: '',
         userAvatar: '',
@@ -53,7 +80,6 @@ const AddComment = (props) => {
 
 
     const handleSubmit = (event) => {
-        console.log(event);
         postToDatabase();
         props.onAdd({
             content: commentData.content,
@@ -68,14 +94,15 @@ const AddComment = (props) => {
     }
 
     return (
-        <form className={classes.root} autoComplete="off" action='POST' onSubmit={handleSubmit}>
-            <TextField 
-                id="outlined-basic" 
-                label="comment" variant="outlined" 
-                onChange={handleChange} 
+        <form autoComplete="off" action='POST' onSubmit={handleSubmit} className={classes.root} >
+            <CssTextField
+                className={`${classes.margin} comment-card`}
+                variant="outlined"
+                onChange={handleChange}
                 value={commentData.content}
+                id="custom-css-outlined-input"
             />
-            <Button type="submit" variant="contained" color="primary">
+            <Button className='comment-card' type="submit" variant="contained" style={{backgroundColor: '#d63447', color: 'white'}}>
                 Add Comment
             </Button>
         </form>
@@ -84,3 +111,4 @@ const AddComment = (props) => {
 
 
 export default AddComment;
+

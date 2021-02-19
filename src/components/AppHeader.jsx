@@ -3,13 +3,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import NightsStayIcon from '@material-ui/icons/NightsStay';
-// import Button from '@material-ui/core/Button';
 
 
 const AppHeader = () => {
 
   return (
-      <AppBar position="static">
+      <AppBar position="static" style={{backgroundColor: '#d63447'}}>
         <Toolbar>
           <Typography variant="h4">
             <NightsStayIcon />SomeWeatherData

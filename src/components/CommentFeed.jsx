@@ -1,54 +1,34 @@
-import React, { useEffect, useState }  from 'react';
-import AddComment from './AddComment';
-import SingleComment from './SingleComment';
-import List from '@material-ui/core/List';
+import React, { useState }  from 'react';
+
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+import FeedHead from './Comment-components/FeedHead'
+import FeedBody from './Comment-components/FeedBody';
+
+
 
 
 const CommentFeed = () => {
     
+    const [isClicked, setIsClicked] = useState(false)
 
-    const [currentFeed, setCurrentFeed] = useState([])
-
-    useEffect(() => {
-        const getComments = async () => {
-            const response = await fetch('/comments');
-            const jsonComments = await response.json()
-            const commentArray = jsonComments.hits.hits
-            setCurrentFeed(() => 
-                commentArray.map(comment => {
-                    return {
-                        content: comment._source.content,
-                        timeStamp: new Date(comment._source.timeStamp),
-                        id: comment._id
-                    }
-                }).reverse()
-            )
-        }
-        getComments();
-    }, [])
-    
-    const handleAdd = (newComment) => {
-        setCurrentFeed(prevComments => [...prevComments, newComment]);
+    const handleClick = () => {
+        setIsClicked(!isClicked);
     }
 
     return (
-            <List>
-                <h3>Comments</h3>
-                {currentFeed.map(comment => {
-                    return (
-                        <SingleComment
-                            time={comment.timeStamp} 
-                            content={comment.content}
-                            key={comment.id ? comment.id : comment.tempId}
-                        /> 
-                    )
-                })}
-                <AddComment onAdd={handleAdd}/>
-            </List>
-
-
-        
+        <React.Fragment>
+            <CssBaseline />
+            <FeedHead onClick={handleClick}/>
+            <FeedBody onClick={isClicked} onAdd={handleClick}/>
+        </React.Fragment>   
     )
 }
 
 export default CommentFeed;
+
+    
+    
+
+
+ 
